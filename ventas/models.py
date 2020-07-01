@@ -39,13 +39,17 @@ class Proveedore(models.Model):
         return self.nombre
 
 class Venta(models.Model):
-    idd = models.CharField(max_length = 50, null=False)
+    idd = models.DateField(max_length = 50, null=False)
     fecha = models.CharField(max_length = 50, null=False)
     montofinal = models.CharField(max_length = 50, null=False)
-    descuento = models.CharField(max_length = 50, null=False)
+    descuento = models.BooleanField(default = 0)
     cliente = models.ForeignKey("Cliente", related_name='+',  on_delete=models.CASCADE,null = False,)
+    def isDescuento(self):
+        return self.descuento
+    isDescuento.boolean = descuento
+    isDescuento.short_description = 'Tiene Descuento'
     def __str__(self):
-        return self.fecha + ", " + self.cliente
+        return self.fecha 
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length = 50, null=False)
